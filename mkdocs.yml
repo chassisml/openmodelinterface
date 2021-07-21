@@ -1,0 +1,21 @@
+site_name: Open Model Interface
+nav:
+    - index.md
+theme:
+    name: material
+    palette:
+        primary: white
+        accent: blue
+    logo: images/omi-symbol.png
+    favicon: images/omi-symbol.png
+    features:
+        - navigation.expand
+markdown_extensions:
+    - attr_list
+    - pymdownx.highlight
+    - pymdownx.superfences
+    - pymdownx.inlinehilite
+    - admonition
+repo_url: https://github.com/modzy/docs-openmodelinterface
+repo_name: modzy/docs-openmodelinterface
+edit_uri: edit/main/docs/
