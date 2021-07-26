@@ -61,7 +61,7 @@ ml.openmodel.interfaces=["kfserving.v1", "modzy.v2"]
 
 Where `ml.openmodel.interfaces` is a JSON formatted list of `.`-delimited (INTERFACE, PROTOCOL) tuples.
 
-This is so that the serving system at runtime can determine whether it supports a given model without trying to run it to give the user fast feedback.
+This is so that the serving system at runtime can determine whether it supports a given model without trying to run it so that it can give the user fast feedback.
 
 For example, if a container declares that it supports the KFServing v1 API and the Modzy v2 API as per the example above, it MUST support running in both of the following configurations:
 
