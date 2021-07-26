@@ -4,7 +4,7 @@
 
 The Open Model Interface proposes a spec for _multi-purpose_ OCI-compatible container images for Machine Learning models.
 
-We believe that ML teams should be able to build DevOps-ready container images for interoperable consumption by multiple platforms.
+We believe that ML teams should be able to build DevOps-ready container images for interoperable consumption by multiple platforms to avoid being locked in to any one platform.
 
 
 TODO: diagram
