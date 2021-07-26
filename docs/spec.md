@@ -84,7 +84,7 @@ env:
 ### Ports
 
 When started, the container image MUST listen on the TCP port given as the `HTTP_PORT` environment variable.
-When a container starts listening on the prescribed port, it MUST adhere to the interface described below.
+When a container starts listening on the prescribed port, it MUST adhere to the interface described below corresponding to its configuration.
 
 ### Interfaces
 
