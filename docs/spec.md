@@ -101,5 +101,5 @@ The [Chassis](https://chassis.ml) reference implementation implements `kfserving
 
 If an OMI image declares or supports any strings other than the ones defined above, this document MUST be updated with the new interfaces (with links to their upstream protocol specifications), otherwise the container MUST NOT be described as Open Model Interface compliant.
 
-This document can be updated via Pull Request on [GitHub](https://github.com/modzy/openmodelinterface).
+This document can be updated via Pull Request on [GitHub](https://github.com/modzy/openmodelinterface/edit/main/docs/spec.md).
 Contributions welcome!
