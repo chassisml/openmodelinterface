@@ -1,0 +1,25 @@
+# Rationale
+
+## Why Open Model Interface?
+
+As machine learning and artificial intelligence become more wide-spread and with the rapid pace of innovation and invention there can often be barriers to entry in deploying models into production. New models need to undergo security evaluation and review and often times engineering effort needs to be scheduled to integrate those models into the systems, applications, and workflows where they will bring value. Various surveys indicate that this process can lead to a 6 month or greater delay between when a model is ready for production and when it's available for use in production.
+
+The Open Model Interface is designed to serve as a spec for wrapping models in OCI-compliant containers with a simple yet powerful interface that standardizes on certain security best practices, supports the widest range of machine learning and artificial intelligence training tools and frameworks, and enables re-use of existing integration code to add new or updated models to production environments by sharing a common API across all model containers.
+
+The spec itself tries to be as agnostic as possible as to what the model is and how it was trained. This is important because the world of machine learning and artificial intelligence is evolving so rapidly that any choices or limitations made now will inevitably become blockers to adoption in just a short amount of time. So the spec endeavors to make no assumptions about the language, framework, dependencies, or architectures of the model itself, save for its ability to be packaged as an OCI-compliant container image.
+
+The interface to the model as defined by the spec is a simple gRPC service that is embedded in the container image that exposes a small handful of routes to handle communication between users of the model and the model itself. Using a common gRPC interface to get status info about the model, submit data for inference, and initiate cleanup/shutdown sequence allows for a wide diversity of models to support existing and as-yet-not-invented techniques and architectures to be supported.
+
+Finally the Open Model Interface spec includes out-of-the-box support for deployment with popular ModelOps platforms so that models that adhere to this spec can be added to such platforms for increased scale, security, governance, and compliance. Models in production are rarely deployed alone or in a vacuum and while the Open Model Interface spec provides for a common API to interact and integrate with the model, it's important that models that adhere to this spec are not only useful in isolation but can be seamlessly used by platforms and tools that provide the full suite of ModelOps capabilities. Today the spec supports seamless deployment and usage with KFServing and Modzy with room to add support for more ModelOps platforms in the future.
+
+## Why gRPC?
+
+The choice to use gRPC as the transport protocol for communication between users and the model is due to the wide flexibility in communication patterns that gRPC supports. While choosing JSON and REST presents a low barrier to entry, REST doesn't support more advanced and flexible communication patterns like uni- and bi-directional streaming which are crucial for many of today's more advanced models and usage patterns. The gRPC protocol is not only seeing increased usage in the world of cloud computing and microservices but it also supports all the communication patterns that are valuable for feeding data to models to perform inference. It supports single-shot data submission, batch, stream in, stream out, and bi-directional streams. Additionally, the ability to publish a protobuf file with the typed interface and RPC specification makes for extremely intuitive implementation for software developers wanting to integrate models into their applications and workflows. Using protobufs as the data encoding also increases efficiency and performance of data transmission which can make a real difference in high-performance and low-latency scenarios and reduce time and cost for data transmission over the wire for large applications of AI/ML, especially when running in the cloud.
+
+## Why KFServing?
+
+The choice to include out-of-the-box support for KFService is due to the fact that it is open source and part of the widely used KubeFlow project. KFService provides an open source solution to running many Open Model Interface-compliant models in production with some additional ModelOps capabilities.
+
+## Why Modzy?
+
+Modzy is a commercial ModelOps platform designed to run any kind of machine learning and artifical intelligence model in production, at scale, with enterprise grade security, governance, and compliance. The design of the Open Model Interface grew out of Modzy's internal research and development to provide a common spec that would support all kinds of models, both present and future, with first-class support for emerging capabilities like drift detection, explainability, and adversarial defense.
