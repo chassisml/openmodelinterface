@@ -16,6 +16,6 @@ markdown_extensions:
     - pymdownx.superfences
     - pymdownx.inlinehilite
     - admonition
-repo_url: https://github.com/modzy/docs-openmodelinterface
-repo_name: modzy/docs-openmodelinterface
+repo_url: https://github.com/modzy/openmodelinterface
+repo_name: modzy/openmodelinterface
 edit_uri: edit/main/docs/
