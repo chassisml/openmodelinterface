@@ -2,7 +2,7 @@
 
 ![OMI logo](images/omi-logo.png){: style="width:500px" }
 
-The Open Model Interface (OMI) proposes a spec for _multi-purpose_ OCI-compatible container images for Machine Learning models.
+The Open Model Interface (OMI) proposes a spec for _multi-platform_ OCI-compatible container images for Machine Learning models.
 
 We believe that ML teams should be able to build reusable, DevOps-ready container images for interoperable consumption by multiple platforms to avoid being locked in to any one platform.
 
