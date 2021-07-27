@@ -20,7 +20,7 @@ We believe that ML teams should be able to build reusable, DevOps-ready containe
 
 Including the model files in the container image itself is better than downloading them at runtime because it makes the model images self-contained, adheres to DevOps best practice, and improves reproducibility and reliability.
 
-In particular, some systems download a model from, say, an MLflow server when the server starts up. This relies on the MLflow server being online, which makes the MLflow server a critical part of your production infrastructure. As MLflow servers are often managed by ML teams, this is undesirable, and can result in downtime for your ML services if your MLflow server is unavailable when your model containers restart or scale up.
+In particular, some systems download a model from, say, an MLflow server when the container starts up. This relies on the MLflow server being online, which makes the MLflow server a critical part of your production infrastructure. As MLflow servers are often managed by ML teams, this is undesirable, and can result in downtime for your ML services if your MLflow server is unavailable when your model containers restart or scale up.
 
 In terms of reproducibility, baking models into containers is better because your CI/CD system can record the exact version of the container that was running at any given time, and so you can trace a specific inference result to the exact model that was running in production at that moment, and then trace it (see "Origin tags" in the spec) back to the exact model that trained it.
 
