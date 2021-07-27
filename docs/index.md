@@ -13,7 +13,7 @@ We believe that ML teams should be able to build reusable, DevOps-ready containe
 * Model serving framework can be switched at runtime by environment variable
 * Pre- and post-processing logic can be shipped with the container image
 * Spec includes recommendations around model management for reproducibility & provenance
-* First reference implementation of OMI is available, Apache 2 licensed, at [Chassis](https://chassis.ml)
+* First reference implementation of OMI is available, Apache 2 licensed, at [Chassis.ml](https://chassis.ml)
 
 
 ## Model Baking
