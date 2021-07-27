@@ -61,7 +61,7 @@ ml.openmodel.interfaces=["kfserving.v1", "modzy.v2"]
 
 Where `ml.openmodel.interfaces` is a JSON formatted list of `.`-delimited (INTERFACE, PROTOCOL) tuples.
 
-This is so that the serving system at runtime can determine whether it supports a given model without trying to run it to give the user fast feedback.
+This is so that the serving system at runtime can determine whether it supports a given model without trying to run it so that it can give the user fast feedback.
 
 For example, if a container declares that it supports the KFServing v1 API and the Modzy v2 API as per the example above, it MUST support running in both of the following configurations:
 
@@ -84,7 +84,7 @@ env:
 ### Ports
 
 When started, the container image MUST listen on the TCP port given as the `HTTP_PORT` environment variable.
-When a container starts listening on the prescribed port, it MUST adhere to the interface described below.
+When a container starts listening on the prescribed port, it MUST adhere to the interface described below corresponding to its configuration.
 
 ### Interfaces
 
@@ -93,7 +93,7 @@ The following interfaces are permitted in the spec:
 * `kfserving`: Supports the KFServing [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) (INTERFACE=kfserving, PROTOCOL=v1) and/or the [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) (INTERFACE=kfserving, PROTOCOL=v2)
 * `modzy`: Supports the Modzy [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) (INTERFACE=modzy, PROTOCOL=v1) or the Modzy [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) (INTERFACE=modzy, PROTOCOL=v2)
 
-It is RECOMMENDED that OMI compliant container images implement at least the `kfserving.v2` and `modzy.v2` APIs.
+OMI compliant container images MUST implement at least the `kfserving.v2` and `modzy.v2` APIs.
 
 The [Chassis](https://chassis.ml) reference implementation implements `kfserving.v1`, `kfserving.v2` and `modzy.v2`.
 
