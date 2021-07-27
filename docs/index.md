@@ -27,8 +27,6 @@ TODO: Rationale
 
 ## Build once, run many: Runtime Configuration
 
-![](images/chameleon.webp)
-
 
 ## Reference Implementation
 
@@ -37,3 +35,8 @@ TODO: Rationale
 
 * Explainability
 * Drift
+
+
+## History
+
+The OMI is founded by [Modzy](https://modzy.com) is a commercial ModelOps platform designed to run any kind of machine learning and artifical intelligence model in production, at scale, with enterprise grade security, governance, and compliance. The design of the Open Model Interface grew out of Modzy's internal research and development to provide a common spec that would support all kinds of models, both present and future, with first-class support for emerging capabilities like drift detection, explainability, and adversarial defense.
