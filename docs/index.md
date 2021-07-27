@@ -27,7 +27,7 @@ In terms of reproducibility, baking models into containers is better because you
 
 ## Build once, run many
 
-By creating images that are "multi-purpose", you can avoid lock-in from a specific runtime platform. Instead, your ML teams can build container images that work in a variety of different platforms.
+By creating images that are "multi-purpose", you can avoid lock-in from a specific runtime platform. Instead, your ML teams can build container images that work in a variety of different platforms and are "portable" between different platforms with no effort.
 
 See the spec to see exactly how runtime configuration of the exposed interface works.
 
