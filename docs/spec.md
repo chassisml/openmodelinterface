@@ -90,8 +90,8 @@ When a container starts listening on the prescribed port, it MUST adhere to the 
 
 The following interfaces are permitted in the spec:
 
-* `kfserving`: Supports the KFServing [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) (INTERFACE=kfserving, PROTOCOL=v1) and/or the [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) (INTERFACE=kfserving, PROTOCOL=v2)
-* `modzy`: Supports the Modzy [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) (INTERFACE=modzy, PROTOCOL=v1) or the Modzy [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) (INTERFACE=modzy, PROTOCOL=v2)
+* `kfserving`: Supports the KFServing [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) with `INTERFACE=kfserving, PROTOCOL=v1` and/or the [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) with `INTERFACE=kfserving, PROTOCOL=v2`
+* `modzy`: Supports the Modzy [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) with `INTERFACE=modzy, PROTOCOL=v1` or the Modzy [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) with `INTERFACE=modzy, PROTOCOL=v2`
 
 OMI compliant container images MUST implement at least the `kfserving.v2` and `modzy.v2` APIs.
 
