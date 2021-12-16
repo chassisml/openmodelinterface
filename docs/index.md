@@ -39,7 +39,9 @@ There you can try a test drive of the reference implementation to play with it t
 
 ## OMI Community Connections
 
-All things OMI are discussed in the "Open Source" channels of Modzy's Discord server. Anyone looking to understand more about OMI or influence the spec is welcome to join us over there [OMI Discord](https://www2.modzy.com/modzy-discord-OMI)
+All things OMI are discussed in the "Open Source" channels of Modzy's Discord server. Anyone looking to understand more about OMI or influence the spec is welcome to join us over there.
+
+* [OMI Discord](https://www2.modzy.com/modzy-discord-OMI)
 
 ## Roadmap
 
