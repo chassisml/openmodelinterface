@@ -37,6 +37,9 @@ See the spec to see exactly how runtime configuration of the exposed interface w
 The first reference implementation of the OMI is available today, under the Apache 2 license, at [Chassis.ml](https://chassis.ml).
 There you can try a test drive of the reference implementation to play with it today.
 
+## OMI Community Connections
+
+All things OMI are discussed in the "Open Source" channels of Modzy's Discord server. Anyone looking to understand more about OMI or influence the spec is welcome to join us over there [OMI Discord](https://www2.modzy.com/modzy-discord-OMI)
 
 ## Roadmap
 
