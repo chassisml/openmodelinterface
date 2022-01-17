@@ -57,8 +57,8 @@ The following interfaces are permitted in the spec:
   * [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) with `ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v1" `
   * [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) with `ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v2"`
 * `modzy`: Supports 
-  * [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1" `
-  * [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2" `
+  * [v1 REST API](https://docs.modzy.com/docs/container-specifications-rest) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1" `
+  * [v2 gRPC API](https://docs.modzy.com/docs/container-specifications-grpc) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2" `
 
 OMI compliant container images MUST implement at least the `kfserving.v2` or `modzy.v2` APIs.
 
