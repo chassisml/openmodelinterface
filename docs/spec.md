@@ -4,9 +4,10 @@
 
 ## Changelog
 
-| Date       | Version | Notes                       |
-|------------|---------|-----------------------------|
-| 2021-07-26 | 1.0     | Initial version of OMI Spec |
+| Date       | Version | Notes                                        |
+|------------|---------|----------------------------------------------|
+| 2021-07-26 | 1.0     | Initial version of OMI Spec                  |
+| 2022-TBD   | 1.1     | Updated OMI Spec to include new requirements |
 
 ## Requirements
 
@@ -24,76 +25,42 @@ For example, the container image tag MAY be set to the [MLflow Run ID](https://w
 This is to enable provenance tracking from a given model which generated certain inference results to metadata about how the model was trained.
 The metadata referred to by the model tag SHOULD record the versions of the code, data and environment that were used to train the model.
 
-### No latest tag at runtime
-
-The container MUST NOT be addressed via the OCI image tag `:latest` when the serving system is configured to refer to the model.
-This is to ensure better reproducibility and tracking of which model generated certain inference results.
-
-It is up to the model serving system (or the CI/CD system which is driving it) to keep track of which models were deployed/configured at runtime in order to be able to track back from a given model inference to exactly which version of the model generated that inference.
-
 ### Environment variables
+Starting with Version 1.1 Environment variables have been replaced with [OCI annotations](https://github.com/opencontainers/image-spec/blob/main/annotations.md) to ensure that an OMI compliant container always returns the same information when metadata is queried at rest and at runtime.
 
-The container MUST be configurable with the following environment variables (the values below are just examples):
-```yaml
-env:
-  - name: INTERFACE
-    value: kfserving
-  - name: HTTP_PORT
-    value: "8080"
-  - name: PROTOCOL
-    value: v1
-  - name: MODEL_NAME
-    value: digits
-```
 
-* `INTERFACE` MUST be the string interface supported, as defined in the interfaces section below.
-* `PROTOCOL` MAY be the optional sub-protocol of the given interface
-* `MODEL_NAME` MUST be some human-readable name of the model that is to be run inside the container. This CAN be used to switch between different bundled models at runtime
-* `HTTP_PORT` MUST be the TCP port that the container should listen on when started
+### Declares Openmodel Annotations
 
-### Declares which interfaces it supports
-
-The container MUST have an [OCI annotation](https://github.com/opencontainers/image-spec/blob/main/annotations.md) of the following form:
+The container MUST have [OCI annotations](https://github.com/opencontainers/image-spec/blob/main/annotations.md) of the following form:
 
 ```
-ml.openmodel.interfaces=["kfserving.v1", "modzy.v2"]
+ml.openmodel.interfaces=["kfserving", "modzy"]
+ml.openmodel.protocols=[["v1","v2"],["v2"]]
+ml.openmodel.port="8080"
+ml.openml.model_name="modelname"
 ```
 
-Where `ml.openmodel.interfaces` is a JSON formatted list of `.`-delimited (INTERFACE, PROTOCOL) tuples.
+Where `ml.openmodel.protocol` is list of lists such that the inner list's index corresponds to its interface index e.g. a model with the above configuration would support kfserving v1 and v2 protocols as well as the modzy interface with v2 protocol.
 
 This is so that the serving system at runtime can determine whether it supports a given model without trying to run it so that it can give the user fast feedback.
 
-For example, if a container declares that it supports the KFServing v1 API and the Modzy v2 API as per the example above, it MUST support running in both of the following configurations:
-
-```yaml
-env:
-  - name: INTERFACE
-    value: kfserving
-  - name: PROTOCOL
-    value: v1
-```
-
-```yaml
-env:
-  - name: INTERFACE
-    value: modzy
-  - name: PROTOCOL
-    value: v2
-```
-
 ### Ports
 
-When started, the container image MUST listen on the TCP port given as the `HTTP_PORT` environment variable.
+When started, the container image MUST listen on the TCP port given as the `ml.openmodel.port` annotation.
 When a container starts listening on the prescribed port, it MUST adhere to the interface described below corresponding to its configuration.
 
-### Interfaces
+### Interfaces and Protocols
 
 The following interfaces are permitted in the spec:
 
-* `kfserving`: Supports the KFServing [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) with `INTERFACE=kfserving, PROTOCOL=v1` and/or the [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) with `INTERFACE=kfserving, PROTOCOL=v2`
-* `modzy`: Supports the Modzy [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) with `INTERFACE=modzy, PROTOCOL=v1` or the Modzy [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) with `INTERFACE=modzy, PROTOCOL=v2`
+* `kfserving`: Supports
+  * [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) with `ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v1" `
+  * [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) with `ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v2"`
+* `modzy`: Supports 
+  * [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1" `
+  * [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2" `
 
-OMI compliant container images MUST implement at least the `kfserving.v2` and `modzy.v2` APIs.
+OMI compliant container images MUST implement at least the `kfserving.v2` or `modzy.v2` APIs.
 
 The [Chassis](https://chassis.ml) reference implementation implements `kfserving.v1`, `kfserving.v2` and `modzy.v2`.
 
