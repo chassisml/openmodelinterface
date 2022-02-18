@@ -6,8 +6,9 @@ nav:
 theme:
     name: material
     palette:
-        primary: orange
-        accent: blue
+        scheme: omi
+        # primary: orange
+        # accent: blue
     logo: images/omi-symbol.png
     favicon: images/omi-symbol.png
     features:
@@ -21,3 +22,5 @@ markdown_extensions:
 repo_url: https://github.com/modzy/openmodelinterface
 repo_name: modzy/openmodelinterface
 edit_uri: edit/main/docs/
+extra_css:
+    - stylesheets/extra.css
