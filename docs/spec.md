@@ -60,7 +60,7 @@ The following interfaces are permitted in the spec:
   * [v1 REST API](https://docs.modzy.com/docs/container-specifications-rest) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1" `
   * [v2 gRPC API](https://docs.modzy.com/docs/container-specifications-grpc) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2" `
 
-OMI compliant container images MUST implement at least the `kfserving.v2` or `modzy.v2` APIs.
+OMI compliant container images MUST implement at least one of the `kfserving` or `modzy` API interfaces, be runnable and responsive on both KServe and Modzy platforms, and be runnable independently in isolation.
 
 The [Chassis](https://chassis.ml) reference implementation implements `kfserving.v1`, `kfserving.v2` and `modzy.v2`.
 
