@@ -60,9 +60,18 @@ The following interfaces are permitted in the spec:
   * [v1 REST API](https://docs.modzy.com/docs/container-specifications-rest) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1" `
   * [v2 gRPC API](https://docs.modzy.com/docs/container-specifications-grpc) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2" `
 
-OMI compliant container images MUST implement at least one of the `kfserving` or `modzy` API interfaces, be runnable and responsive on both KServe and Modzy platforms, and be runnable independently in isolation.
 
-The [Chassis](https://chassis.ml) reference implementation implements `kfserving.v1`, `kfserving.v2` and `modzy.v2`.
+OMI compliant container images MUST: 
+  * implement at least one of the `kfserving` or `modzy` API interfaces
+  * be runnable and responsive on both KServe and Modzy platforms
+  * be runnable independently in isolation
+
+For example:
+
+The [Chassis](https://chassis.ml) reference implementation of the OMI specification produces containers 
+  * that implement the `modzy.v2` API. 
+  * that implement a KServe compatible architecture that follows the `kfserving.v1` specification with one exception. Chassis generated model containers expect binary data instead of the json data the `kfserving.v1` spec designates. However, python can interpret binary data as text. As a result the model containers will run on both KFServing and Modzy Platforms.
+  * that can run in isolation
 
 ## Updates to this spec
 
