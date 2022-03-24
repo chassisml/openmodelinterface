@@ -4,13 +4,14 @@
 
 ## Changelog
 
-| Date       | Version | Notes                       |
-|------------|---------|-----------------------------|
-| 2021-07-26 | 1.0     | Initial version of OMI Spec |
+| Date       | Version | Notes                                        |
+|------------|---------|----------------------------------------------|
+| 2021-07-26 | 1.0     | Initial version of OMI Spec                  |
+| 2022-TBD   | 1.1     | Updated OMI Spec to include new requirements |
 
 ## Requirements
 
-To qualify as an Open Model Interface (OMI) compliant container, a container must pass the following tests.
+To qualify as an Open Model Interface (OMI) compliant container, a container MUST pass the following tests.
 
 ### OCI compliant
 
@@ -24,82 +25,77 @@ For example, the container image tag MAY be set to the [MLflow Run ID](https://w
 This is to enable provenance tracking from a given model which generated certain inference results to metadata about how the model was trained.
 The metadata referred to by the model tag SHOULD record the versions of the code, data and environment that were used to train the model.
 
-### No latest tag at runtime
+### Declares Openmodel Annotations
 
-The container MUST NOT be addressed via the OCI image tag `:latest` when the serving system is configured to refer to the model.
-This is to ensure better reproducibility and tracking of which model generated certain inference results.
+The container MUST have [OCI annotations](https://github.com/opencontainers/image-spec/blob/main/annotations.md) of the following form:
 
-It is up to the model serving system (or the CI/CD system which is driving it) to keep track of which models were deployed/configured at runtime in order to be able to track back from a given model inference to exactly which version of the model generated that inference.
+```
+ml.openmodel.interfaces=["kfserving", "modzy"]
+ml.openmodel.protocols=[["v1","v2"],["v2"]]
+ml.openmodel.port="8080"
+ml.openml.model_name="modelname"
+```
+
+Where `ml.openmodel.protocol` is list of lists such that the inner list's index corresponds to its interface index e.g. a model with the above configuration would support kfserving v1 and v2 protocols as well as the modzy interface with v2 protocol.
+
+This is so that the serving system at runtime can determine whether it supports a given model without trying to run it so that it can give the user fast feedback.
+
+### Ports
+
+When started, the container image MUST listen on the TCP port given as the `ml.openmodel.port` annotation.
+When a container starts listening on the prescribed port, it MUST adhere to the interface described below corresponding to its configuration.
 
 ### Environment variables
-
-The container MUST be configurable with the following environment variables (the values below are just examples):
+OCI annotations are not available in a running Docker container. As a result, an OMI container MUST be configurable with the following environment variables to provide a copy of the values associated with the OMI labels:
 ```yaml
 env:
   - name: INTERFACE
-    value: kfserving
+    value: <ml.openmodel.interfaces> # e.g. kfserving
   - name: HTTP_PORT
-    value: "8080"
+    value: <ml.openmodel.port> # e.g. 8080
   - name: PROTOCOL
-    value: v1
+    value: <ml.openmodel.protocols> # e.g. v2
   - name: MODEL_NAME
-    value: digits
+    value: <ml.openml.model_name> # e.g. mdodel name
 ```
 
 * `INTERFACE` MUST be the string interface supported, as defined in the interfaces section below.
 * `PROTOCOL` MAY be the optional sub-protocol of the given interface
-* `MODEL_NAME` MUST be some human-readable name of the model that is to be run inside the container. This CAN be used to switch between different bundled models at runtime
+* `MODEL_NAME` MUST be some human-readable name of the model that is to be run inside the container.
 * `HTTP_PORT` MUST be the TCP port that the container should listen on when started
 
-### Declares which interfaces it supports
-
-The container MUST have an [OCI annotation](https://github.com/opencontainers/image-spec/blob/main/annotations.md) of the following form:
-
-```
-ml.openmodel.interfaces=["kfserving.v1", "modzy.v2"]
-```
-
-Where `ml.openmodel.interfaces` is a JSON formatted list of `.`-delimited (INTERFACE, PROTOCOL) tuples.
-
-This is so that the serving system at runtime can determine whether it supports a given model without trying to run it so that it can give the user fast feedback.
-
-For example, if a container declares that it supports the KFServing v1 API and the Modzy v2 API as per the example above, it MUST support running in both of the following configurations:
-
-```yaml
-env:
-  - name: INTERFACE
-    value: kfserving
-  - name: PROTOCOL
-    value: v1
-```
-
-```yaml
-env:
-  - name: INTERFACE
-    value: modzy
-  - name: PROTOCOL
-    value: v2
-```
-
-### Ports
-
-When started, the container image MUST listen on the TCP port given as the `HTTP_PORT` environment variable.
-When a container starts listening on the prescribed port, it MUST adhere to the interface described below corresponding to its configuration.
-
-### Interfaces
+If a conflict arises between the OCI annotations and the environment variables, The OMI specification considers OCI annotations to be authoritative. 
+### Interfaces and Protocols
 
 The following interfaces are permitted in the spec:
 
-* `kfserving`: Supports the KFServing [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) with `INTERFACE=kfserving, PROTOCOL=v1` and/or the [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) with `INTERFACE=kfserving, PROTOCOL=v2`
-* `modzy`: Supports the Modzy [v1 REST API](https://models.modzy.com/docs/model-packaging/container-specifications) with `INTERFACE=modzy, PROTOCOL=v1` or the Modzy [v2 gRPC API](https://models.modzy.com/docs/model-packaging/container-specifications-v2) with `INTERFACE=modzy, PROTOCOL=v2`
+* `kfserving`: Supports
+  * [v1 REST API](https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1) with `ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v1" `
+  * [v2 gRPC API](https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2) with `ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v2"`
+* `modzy`: Supports 
+  * [v1 REST API](https://docs.modzy.com/docs/container-specifications-rest) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1" `
+  * [v2 gRPC API](https://docs.modzy.com/docs/container-specifications-grpc) with `ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2" `
 
-OMI compliant container images MUST implement at least the `kfserving.v2` and `modzy.v2` APIs.
+### Compliant Implementations
 
-The [Chassis](https://chassis.ml) reference implementation implements `kfserving.v1`, `kfserving.v2` and `modzy.v2`.
+OMI compliant container images MUST: 
+  * implement at least one of the `kfserving` or `modzy` API interfaces
+  * be runnable and responsive on both KServe and Modzy platforms
+  * be runnable independently in isolation
+
+For example:
+
+The [Chassis](https://chassis.ml) reference implementation of the OMI specification produces containers 
+  * that implement the `modzy.v2` API 
+  * that implement a KServe compatible architecture that follows the `kfserving.v1` specification with one exception. Chassis-generated model containers expect binary input data instead of the json input data the `kfserving.v1` spec designates. Therefore, for KFServing users must base64-encode their input bytes to be included within their json input submission. In this way, the model containers generated by Chassis will run on KFServing as well as Modzy.
+  * that can run in isolation
 
 ## Updates to this spec
 
 If an OMI image declares or supports any strings other than the ones defined above, this document MUST be updated with the new interfaces (with links to their upstream protocol specifications), otherwise the container MUST NOT be described as Open Model Interface compliant.
 
 This document can be updated via Pull Request on [GitHub](https://github.com/modzy/openmodelinterface/edit/main/docs/spec.md).
+
+Any proposed PRs must be accompanied by a public comment period of no less than 2 weeks (14 days) before a merge can be approved.
+
 Contributions welcome!

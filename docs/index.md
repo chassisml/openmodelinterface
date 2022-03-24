@@ -45,12 +45,10 @@ All things OMI are discussed in the "Open Source" channels of Modzy's Discord se
 
 ## Roadmap
 
-* Support for other runtimes: Sagemaker, Algorithmia, etc
-* Ingest models from sources other than MLflow
 * Explainability support
 * Drift support
 
 
 ## History
 
-The OMI is founded by [Modzy](https://modzy.com) is a commercial ModelOps platform designed to run any kind of machine learning and artifical intelligence model in production, at scale, with enterprise grade security, governance, and compliance. The design of the Open Model Interface grew out of Modzy's internal research and development to provide a common spec that would support all kinds of models, both present and future, with first-class support for emerging capabilities like drift detection, explainability, and adversarial defense.
+The OMI was founded by [Modzy](https://modzy.com) a commercial ModelOps platform designed to run any kind of machine learning and artificial intelligence model in production, at scale, with enterprise grade security, governance, and compliance. The design of the Open Model Interface grew out of Modzy's internal research and development as well as client feedback on production pipeline deployment. Modzy donated the best practices and lessons learned from its corporate ventures to provide a common spec that would support all kinds of models, both present and future, with first-class support for emerging capabilities like drift detection, explainability, and adversarial defense.
