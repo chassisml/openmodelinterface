@@ -1,0 +1,637 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../images/omi-symbol.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.6">
+    
+    
+      
+        <title>Open Model Interface Spec - Open Model Interface</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffa724">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="orange" data-md-color-accent="blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#open-model-interface-spec" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Open Model Interface" class="md-header__button md-logo" aria-label="Open Model Interface" data-md-component="logo">
+      
+  <img src="../images/omi-symbol.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Model Interface
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Open Model Interface Spec
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/modzy/openmodelinterface/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modzy/openmodelinterface
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Open Model Interface" class="md-nav__button md-logo" aria-label="Open Model Interface" data-md-component="logo">
+      
+  <img src="../images/omi-symbol.png" alt="logo">
+
+    </a>
+    Open Model Interface
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/modzy/openmodelinterface/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modzy/openmodelinterface
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Open Model Interface Spec
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Open Model Interface Spec
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#changelog" class="md-nav__link">
+    Changelog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oci-compliant" class="md-nav__link">
+    OCI compliant
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#origin-tags" class="md-nav__link">
+    Origin tags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declares-openmodel-annotations" class="md-nav__link">
+    Declares Openmodel Annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ports" class="md-nav__link">
+    Ports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    Environment variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces-and-protocols" class="md-nav__link">
+    Interfaces and Protocols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compliant-implementations" class="md-nav__link">
+    Compliant Implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updates-to-this-spec" class="md-nav__link">
+    Updates to this spec
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rationale/" class="md-nav__link">
+        Rationale
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#changelog" class="md-nav__link">
+    Changelog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oci-compliant" class="md-nav__link">
+    OCI compliant
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#origin-tags" class="md-nav__link">
+    Origin tags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declares-openmodel-annotations" class="md-nav__link">
+    Declares Openmodel Annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ports" class="md-nav__link">
+    Ports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    Environment variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces-and-protocols" class="md-nav__link">
+    Interfaces and Protocols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compliant-implementations" class="md-nav__link">
+    Compliant Implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updates-to-this-spec" class="md-nav__link">
+    Updates to this spec
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/modzy/openmodelinterface/edit/main/docs/spec.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="open-model-interface-spec">Open Model Interface Spec</h1>
+<blockquote>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="https://datatracker.ietf.org/doc/html/rfc2119">RFC 2119</a>.</p>
+</blockquote>
+<h2 id="changelog">Changelog</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Version</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2021-07-26</td>
+<td>1.0</td>
+<td>Initial version of OMI Spec</td>
+</tr>
+<tr>
+<td>2022-03-24</td>
+<td>1.1</td>
+<td>Updated OMI Spec to include new requirements</td>
+</tr>
+</tbody>
+</table>
+<h2 id="requirements">Requirements</h2>
+<p>To qualify as an Open Model Interface (OMI) compliant container, a container MUST pass the following tests.</p>
+<h3 id="oci-compliant">OCI compliant</h3>
+<p>The container image MUST be an <a href="https://opencontainers.org/">OCI</a> compliant container image, for example it MAY be generated by <a href="https://docs.docker.com/engine/reference/commandline/build/"><code>docker build</code></a> or <a href="https://github.com/GoogleContainerTools/kaniko">Kaniko</a>.</p>
+<h3 id="origin-tags">Origin tags</h3>
+<p>The container MUST be tagged (e.g. <code>tag</code> in <code>registry/org/image:tag</code>) with a unique ID which corresponds to the ID of the model in the upstream model management system.
+For example, the container image tag MAY be set to the <a href="https://www.mlflow.org/docs/latest/model-registry.html">MLflow Run ID</a> which generated the model.</p>
+<p>This is to enable provenance tracking from a given model which generated certain inference results to metadata about how the model was trained.
+The metadata referred to by the model tag SHOULD record the versions of the code, data and environment that were used to train the model.</p>
+<h3 id="declares-openmodel-annotations">Declares Openmodel Annotations</h3>
+<p>The container MUST have <a href="https://github.com/opencontainers/image-spec/blob/main/annotations.md">OCI annotations</a> of the following form:</p>
+<div class="highlight"><pre><span></span><code>ml.openmodel.interfaces=[&quot;kfserving&quot;, &quot;modzy&quot;]
+ml.openmodel.protocols=[[&quot;v1&quot;,&quot;v2&quot;],[&quot;v2&quot;]]
+ml.openmodel.port=&quot;8080&quot;
+ml.openml.model_name=&quot;modelname&quot;
+</code></pre></div>
+<p>Where <code>ml.openmodel.protocol</code> is list of lists such that the inner list's index corresponds to its interface index e.g. a model with the above configuration would support kfserving v1 and v2 protocols as well as the modzy interface with v2 protocol.</p>
+<p>This is so that the serving system at runtime can determine whether it supports a given model without trying to run it so that it can give the user fast feedback.</p>
+<h3 id="ports">Ports</h3>
+<p>When started, the container image MUST listen on the TCP port given as the <code>ml.openmodel.port</code> annotation.
+When a container starts listening on the prescribed port, it MUST adhere to the interface described below corresponding to its configuration.</p>
+<h3 id="environment-variables">Environment variables</h3>
+<p>OCI annotations are not available in a running Docker container. As a result, an OMI container MUST be configurable with the following environment variables to provide a copy of the values associated with the OMI labels:
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INTERFACE</span><span class="w"></span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ml.openmodel.interfaces&gt;</span><span class="w"> </span><span class="c1"># e.g. kfserving</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HTTP_PORT</span><span class="w"></span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ml.openmodel.port&gt;</span><span class="w"> </span><span class="c1"># e.g. 8080</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PROTOCOL</span><span class="w"></span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ml.openmodel.protocols&gt;</span><span class="w"> </span><span class="c1"># e.g. v2</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MODEL_NAME</span><span class="w"></span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ml.openml.model_name&gt;</span><span class="w"> </span><span class="c1"># e.g. mdodel name</span><span class="w"></span>
+</code></pre></div></p>
+<ul>
+<li><code>INTERFACE</code> MUST be the string interface supported, as defined in the interfaces section below.</li>
+<li><code>PROTOCOL</code> MAY be the optional sub-protocol of the given interface</li>
+<li><code>MODEL_NAME</code> MUST be some human-readable name of the model that is to be run inside the container.</li>
+<li><code>HTTP_PORT</code> MUST be the TCP port that the container should listen on when started</li>
+</ul>
+<p>If a conflict arises between the OCI annotations and the environment variables, The OMI specification considers OCI annotations to be authoritative. </p>
+<h3 id="interfaces-and-protocols">Interfaces and Protocols</h3>
+<p>The following interfaces are permitted in the spec:</p>
+<ul>
+<li><code>kfserving</code>: Supports</li>
+<li><a href="https://github.com/kubeflow/kfserving/blob/master/docs/README.md#data-plane-v1">v1 REST API</a> with <code>ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v1"</code></li>
+<li><a href="https://github.com/kubeflow/kfserving/tree/master/docs/predict-api/v2">v2 gRPC API</a> with <code>ml.openmodel.interfaces=["kfserving"] and ml.openmodel.protocols="v2"</code></li>
+<li><code>modzy</code>: Supports </li>
+<li><a href="https://docs.modzy.com/docs/container-specifications-rest">v1 REST API</a> with <code>ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v1"</code></li>
+<li><a href="https://docs.modzy.com/docs/container-specifications-grpc">v2 gRPC API</a> with <code>ml.openmodel.interfaces=["modzy"] and ml.openmodel.protocols="v2"</code></li>
+</ul>
+<h3 id="compliant-implementations">Compliant Implementations</h3>
+<p>OMI compliant container images MUST: 
+  * implement at least one of the <code>kfserving</code> or <code>modzy</code> API interfaces
+  * be runnable and responsive on both KServe and Modzy platforms
+  * be runnable independently in isolation</p>
+<p>For example:</p>
+<p>The <a href="https://chassis.ml">Chassis</a> reference implementation of the OMI specification produces containers 
+  * that implement the <code>modzy.v2</code> API 
+  * that implement a KServe compatible architecture that follows the <code>kfserving.v1</code> specification with one exception. Chassis-generated model containers expect binary input data instead of the json input data the <code>kfserving.v1</code> spec designates. Therefore, for KFServing users must base64-encode their input bytes to be included within their json input submission. In this way, the model containers generated by Chassis will run on KFServing as well as Modzy.
+  * that can run in isolation</p>
+<h2 id="updates-to-this-spec">Updates to this spec</h2>
+<p>If an OMI image declares or supports any strings other than the ones defined above, this document MUST be updated with the new interfaces (with links to their upstream protocol specifications), otherwise the container MUST NOT be described as Open Model Interface compliant.</p>
+<p>This document can be updated via Pull Request on <a href="https://github.com/modzy/openmodelinterface/edit/main/docs/spec.md">GitHub</a>.</p>
+<p>Any proposed PRs must be accompanied by a public comment period of no less than 2 weeks (14 days) before a merge can be approved.</p>
+<p>Contributions welcome!</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Introduction
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../rationale/" class="md-footer__link md-footer__link--next" aria-label="Next: Rationale" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Rationale
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.5e67fbfe.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
+</html>
